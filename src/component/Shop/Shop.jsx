@@ -3,11 +3,18 @@ import Card from '../Card/Card';
 
 const Shop = () => {
     const [products,setProducts] = useState([])
+    const [cart,setCart] = useState([])
+
     useEffect(()=>{
         fetch('products.json')
         .then(res => res.json())
         .then(data =>setProducts(data))
     },[])
+
+    const handelAddToCart = (props) =>{
+        const newCart = [...cart,props]
+        setCart(newCart)
+    }
     // console.log(products);
     return (
         // shop-container  
@@ -18,13 +25,15 @@ const Shop = () => {
                     products.map(product => <Card
                     {...product}
                     key={product.id}
+                    handelAddToCart={handelAddToCart}
                     ></Card>)
                 }
             </div>
 
             {/* card container  */}
-            <div className=''>
+            <div className='bg-red-400'>
                 <h2>Order Summery</h2>
+                <p>Seleted Porduct : {cart.length}</p>
             </div>
             
         </div>
