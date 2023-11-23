@@ -30,7 +30,7 @@ const OrderCard = ({ cart }) => {
     const grandTotal = parseInt(totalPrice )+ parseInt(totalShiping) + parseInt(tax);
 
 
-
+    
 
 
     return (
