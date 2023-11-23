@@ -38,6 +38,31 @@ const Shop = () => {
 
     const handelAddToCart = (props) =>{
         const newCart = [...cart,props]
+
+        // let newCart = [];
+
+        // const exsit = cart.find(p => p.id === props.id)
+        // if(!exsit){
+        //     props.quantity = 1;
+        //     newCart = [...cart,props]
+        // }
+
+
+
+        // let newCart = [];
+        // const exists = cart.find(product => product.id === props.id);
+        // if(!exists){
+        //     props.quantity = 1;
+        //     newCart = [...cart, props];
+        // }
+        // else{
+        //     const rest = cart.filter(product => product.id !== props.id);
+        //     exists.quantity = exists.quantity + 1;
+        //     newCart = [...rest, exists];
+        // }
+        
+
+
         setCart(newCart)
         addToDb(props.id)
     }

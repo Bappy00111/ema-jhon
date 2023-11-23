@@ -6,19 +6,23 @@ const OrderCard = ({ cart }) => {
 
     // console.log(cart);
     
-    // total price 
+    // total price  adn shipping carg 
     let totalPrice = 0;
-    for(const product of cart){
-        totalPrice = totalPrice + product.price
-        
-    }
-
-    // total siping 
     let  totalShiping = 0;
-    for(const shiping of cart){
-        totalShiping = totalShiping + shiping.shipping
-        // console.log(totalShiping);
+    let quantity = 0 ;
+    for(const product of cart){
+        if(product.quantity === 0){
+            product.quantity = 1;
+        }
+        // product.quantity = product.quantity || 1
+        
+        totalPrice = totalPrice + product.price * product.quantity;
+        totalShiping = totalShiping + product.shipping;
+        quantity = quantity + product.quantity;
+
     }
+     
+    
 
     // Tax total 
 
@@ -27,21 +31,17 @@ const OrderCard = ({ cart }) => {
 
     // grand  total 
 
-    const grandTotal = parseInt(totalPrice )+ parseInt(totalShiping) + parseInt(tax);
-
-
-    
-
+    const grandTotal = parseInt(totalPrice) + parseInt(totalShiping) + parseInt(tax);
 
     return (
         <div className='sticky top-0'>
             <h2 className='text-center text-2xl mb-5 font-bold'>Order Summery</h2>
             <div className='space-y-5'>
-                <p>Seleted Porduct : {cart.length}</p>
+                <p>Seleted Porduct : {quantity}</p>
                 <p>Total Price: ${totalPrice}</p>
                 <p>Total Shipping Charge:${totalShiping}</p>
                 <p>Tax: ${tax}</p>
-                <p className='text-2xl'>Grand Total:${grandTotal.toFixed(2)}</p>
+                <p className='text-2xl'>Grand Total:${grandTotal}</p>
             </div>
             <div className='md:mt-20'>
             <button className="btn bg-[#FF3030] w-full mb-3 text-white">Clear Cart
