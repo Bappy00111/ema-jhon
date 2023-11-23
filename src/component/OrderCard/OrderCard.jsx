@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash,faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const OrderCard = ({ cart }) => {
+
+    // console.log(cart);
     
     // total price 
     let totalPrice = 0;
