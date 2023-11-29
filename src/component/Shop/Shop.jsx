@@ -2,42 +2,45 @@ import React, { useEffect, useState } from 'react';
 import Card from '../Card/Card';
 import OrderCard from '../OrderCard/OrderCard';
 import { addToDb, getShoppingCart } from '../../utilities/fakedb';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faArrowRight } from '@fortawesome/free-solid-svg-icons'
 
 const Shop = () => {
-    const [products,setProducts] = useState([])
-    const [cart,setCart] = useState([])
+    const [products, setProducts] = useState([])
+    const [cart, setCart] = useState([])
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch('products.json')
-        .then(res => res.json())
-        .then(data =>setProducts(data))
-    },[])
+            .then(res => res.json())
+            .then(data => setProducts(data))
+    }, [])
 
-    useEffect(()=>{
-        console.log( "products",products);
+    useEffect(() => {
+        console.log("products", products);
         const savedCart = [];
         // console.log(savedCart);
-    
+
         // step 1 get the id 
         const storeCart = getShoppingCart()
-        for(const id in storeCart){
+        for (const id in storeCart) {
             // step 2 get product using id 
             const saveProduct = products.find(product => product.id === id);
-           //    step 3 get quantity of the product 
-           if(saveProduct){
-            const quantity = storeCart[id]
-            saveProduct.quantity = quantity;
-            // step : 4 add the added produt savedCart 
-            savedCart.push(saveProduct)
-           }          
+            //    step 3 get quantity of the product 
+            if (saveProduct) {
+                const quantity = storeCart[id]
+                saveProduct.quantity = quantity;
+                // step : 4 add the added produt savedCart 
+                savedCart.push(saveProduct)
+            }
         }
         // step 5 set the cart useSate 
         setCart(savedCart)
-    },[products])
+    }, [products])
 
 
-    const handelAddToCart = (props) =>{
-        const newCart = [...cart,props]
+    const handelAddToCart = (props) => {
+        const newCart = [...cart, props]
 
         // let newCart = [];
 
@@ -60,7 +63,7 @@ const Shop = () => {
         //     exists.quantity = exists.quantity + 1;
         //     newCart = [...rest, exists];
         // }
-        
+
 
 
         setCart(newCart)
@@ -74,18 +77,22 @@ const Shop = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 lg:pl-36 lg:pr-[80px] mt-10'>
                 {
                     products.map(product => <Card
-                    {...product}
-                    key={product.id}
-                    handelAddToCart={handelAddToCart}
+                        {...product}
+                        key={product.id}
+                        handelAddToCart={handelAddToCart}
                     ></Card>)
                 }
             </div>
 
             {/* card container  */}
             <div className='bg-[#FFE0B3] p-5 '>
-                <OrderCard cart={cart}></OrderCard>
+                <OrderCard cart={cart}>
+                    <Link to='/order' className="btn bg-[#FF9900] hover:bg-amber-600 w-full text-white">order revew
+                        <FontAwesomeIcon icon={faArrowRight} />
+                    </Link>
+                </OrderCard>
             </div>
-            
+
         </div>
     );
 };

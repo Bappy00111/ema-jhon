@@ -1,8 +1,9 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash,faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { Link } from "react-router-dom";
 
-const OrderCard = ({ cart }) => {
+const OrderCard = ({ cart,handelClearCart,children }) => {
 
     // console.log(cart);
     
@@ -44,12 +45,10 @@ const OrderCard = ({ cart }) => {
                 <p className='text-2xl'>Grand Total:${grandTotal}</p>
             </div>
             <div className='md:mt-20'>
-            <button className="btn bg-[#FF3030] w-full mb-3 text-white">Clear Cart
+            <Link onClick={handelClearCart} className="btn bg-[#FF3030] hover:bg-red-800 w-full mb-3 text-white">Clear Cart
             <FontAwesomeIcon icon={faTrash} />
-            </button>
-            <button className="btn bg-[#FF9900] w-full text-white">Review Order           
-            <FontAwesomeIcon icon={faArrowRight} />
-            </button>
+            </Link>
+            {children}
             </div>
         </div>
     );
